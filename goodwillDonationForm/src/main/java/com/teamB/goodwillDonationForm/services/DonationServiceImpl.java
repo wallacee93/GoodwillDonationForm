@@ -1,4 +1,7 @@
 package com.teamB.goodwillDonationForm.services;
 
-public class DonationServiceImpl {
+import com.teamB.goodwillDonationForm.models.DonationType;
+
+@Service
+public class DonationServiceImpl implements DonationType {
 }
