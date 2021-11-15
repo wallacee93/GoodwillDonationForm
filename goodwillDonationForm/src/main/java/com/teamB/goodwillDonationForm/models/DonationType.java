@@ -14,7 +14,12 @@ public class DonationType {
     private String type;
     private Integer quantity;
 
-    public DonationType(){}
+    public DonationType(){
+    }
+    public DonationType(String type, Integer quantity){
+        this.type = type;
+        this.quantity = quantity;
+    }
 
     public Integer getId() {
         return id;

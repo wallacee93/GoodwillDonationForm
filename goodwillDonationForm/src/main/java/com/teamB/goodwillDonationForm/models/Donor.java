@@ -14,6 +14,11 @@ public class Donor {
     private Integer taxYear;
 
     public Donor(){}
+    public Donor (String name, String address, Integer taxYear){
+        this.name = name;
+        this.address = address;
+        this.taxYear = taxYear;
+    }
 
     public Integer getId() {
         return id;
