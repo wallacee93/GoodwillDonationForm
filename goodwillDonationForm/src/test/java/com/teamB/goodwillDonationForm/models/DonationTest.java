@@ -22,17 +22,17 @@ public class DonationTest {
         emptyDonation1 = new Donation();
 
         List<DonationType> donationTypes = new ArrayList<>();
-        donationTypes.add(new DonationType("Part 1"));
-        donationTypes.add(new DonationType("Part 2"));
+        donationTypes.add(new DonationType("clothes", 5));
+        donationTypes.add(new DonationType("chairs", 3));
 
         List<Donor> donors = new ArrayList<>();
-        donors.add(new Donor("Part 1"));
-        donors.add(new Donor("Part 2"));
+        donors.add(new Donor("Marty", " 112 French Street", 2001));
+        donors.add(new Donor("Tommy", " 114 French Street", 2010));
 
-        donation = new Donation("Test Widget 01", parts);
+        donation = new Donation(donationTypes, donors, "11/21/2020");
         donation.setId(1L);
 
-        donation1 = new Donation("Test Widget 02", parts);
+        donation1 = new Donation(donationTypes, donors, "10/21/2020");
         donation1.setId(2L);
     }
 

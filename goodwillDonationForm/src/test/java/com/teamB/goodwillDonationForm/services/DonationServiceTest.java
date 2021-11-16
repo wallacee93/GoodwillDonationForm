@@ -1,5 +1,7 @@
 package com.teamB.goodwillDonationForm.services;
 
+import com.teamB.goodwillDonationForm.exceptions.DonationNotFoundException;
+import com.teamB.goodwillDonationForm.models.Donation;
 import com.teamB.goodwillDonationForm.models.DonationTest;
 import com.teamB.goodwillDonationForm.models.DonationType;
 import com.teamB.goodwillDonationForm.models.Donor;
@@ -30,9 +32,9 @@ public class DonationServiceTest {
         @Autowired
         private DonationService donationService;
 
-        private DonationTest mockDonation1;
-        private DonationTest mockDonation2;
-        private DonationTest inputDonation;
+        private Donation mockDonation1;
+        private Donation mockDonation2;
+        private Donation inputDonation;
 
     //    public DonationServiceTest(DonationRepo mockDonationRepo) {
     //        this.mockDonationRepo = mockDonationRepo;
@@ -47,12 +49,12 @@ public class DonationServiceTest {
             List<DonationType>donationTypes = new ArrayList<>();
             donationTypes.add(new DonationType("clothes", 5 ));
 
-            inputDonation = new DonationTest(donationTypes, donors,  "11/27/2000" );
+            inputDonation = new Donation(donationTypes, donors,  "11/27/2000" );
 
-            mockDonation1 = new DonationTest(donationTypes, donors, "11/27/1998" );
+            mockDonation1 = new Donation(donationTypes, donors, "11/27/1998" );
             mockDonation1.setId(1L);
 
-            mockDonation2 = new DonationTest(donationTypes, donors, "12/12/1978");
+            mockDonation2 = new Donation(donationTypes, donors, "12/12/1978");
             mockDonation2.setId(2L);
 
         }
@@ -61,29 +63,29 @@ public class DonationServiceTest {
         @DisplayName("Donation Service: Create Donation - Success")
         public void createDonationTestSuccess() {
             BDDMockito.doReturn(mockDonation1).when(mockDonationRepo).save(ArgumentMatchers.any());
-            DonationTest returnedDonation = donationService.create(inputDonation);
+            Donation returnedDonation = donationService.create(inputDonation);
             Assertions.assertNotNull(returnedDonation, "Donation should not be null");
             Assertions.assertEquals(returnedDonation.getId(),1 );
         }
 
         @Test
         @DisplayName("Donation Service: Get Donation by Id - Success")
-        public void getDonationByIdTestSuccess() {
+        public void getDonationByIdTestSuccess() throws DonationNotFoundException {
             BDDMockito.doReturn(Optional.of(mockDonation1)).when(mockDonationRepo).findById(1L);
-            DonationTest foundDonation = donationService.getDonationById(1L);
+            Donation foundDonation = donationService.getDonationbyId(1L);
             Assertions.assertEquals(mockDonation1.toString(), foundDonation.toString());
         }
 
         @Test
         @DisplayName("Donation Service: Get All Donation- Success")
         public void getAllDonationTestSuccess() {
-            List<DonationTest> donations = new ArrayList<>();
+            List<Donation> donations = new ArrayList<>();
             donations.add(mockDonation1);
             donations.add(mockDonation2);
 
             BDDMockito.doReturn(donations).when(mockDonationRepo).findAll();
 
-            List<DonationTest> responseDonations = donationService.getAllDonation();
+            List<Donation> responseDonations = donationService.getAllDonation();
             Assertions.assertIterableEquals(donations,responseDonations);
         }
 }
