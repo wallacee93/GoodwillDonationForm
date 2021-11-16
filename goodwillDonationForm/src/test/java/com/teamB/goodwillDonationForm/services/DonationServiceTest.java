@@ -36,9 +36,6 @@ public class DonationServiceTest {
         private Donation mockDonation2;
         private Donation inputDonation;
 
-    //    public DonationServiceTest(DonationRepo mockDonationRepo) {
-    //        this.mockDonationRepo = mockDonationRepo;
-    //    }
 
         @BeforeEach
         public void setUp(){
