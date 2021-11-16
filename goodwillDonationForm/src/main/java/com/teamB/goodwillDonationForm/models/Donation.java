@@ -13,8 +13,8 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
     private List<DonationType> donationType;
+
     private String donationDate;
 
     public Donation(){}
@@ -25,14 +25,6 @@ public class Donation {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public List<DonationType> getDonationType() {
@@ -56,19 +48,18 @@ public class Donation {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Donation donation = (Donation) o;
-        return id.equals(donation.id) && name.equals(donation.name) && donationType.equals(donation.donationType) && donationDate.equals(donation.donationDate);
+        return id.equals(donation.id) && donationType.equals(donation.donationType) && donationDate.equals(donation.donationDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, donationType, donationDate);
+        return Objects.hash(id, donationType, donationDate);
     }
 
     @Override
     public String toString() {
         return "Donation{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
                 ", donationType=" + donationType +
                 ", donationDate='" + donationDate + '\'' +
                 '}';
