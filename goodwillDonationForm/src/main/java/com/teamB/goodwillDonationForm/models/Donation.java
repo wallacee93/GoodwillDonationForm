@@ -15,9 +15,18 @@ public class Donation {
 
     private List<DonationType> donationType;
 
+    private List<Donor> donors;
+
     private String donationDate;
 
     public Donation(){}
+
+    public Donation(List<DonationType> donationType, List<Donor> donors, String donationDate){
+
+        this.donationType = donationType;
+        this.donors = donors;
+        this.donationDate = donationDate;
+    }
 
     public Long getId() {
         return id;
