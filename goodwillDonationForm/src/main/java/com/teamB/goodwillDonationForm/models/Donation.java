@@ -1,9 +1,6 @@
 package com.teamB.goodwillDonationForm.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,15 +10,23 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private List<DonationType> donationType;
+    @ManyToOne
+    @JoinColumn(name = "donation_type_id")
+    private DonationType donationType;
 
-    private List<Donor> donors;
+    @ManyToOne
+    @JoinColumn(name = "donors_id")
+    private Donor donors;
 
     private String donationDate;
 
+    public Donor getDonors() {
+        return donors;
+    }
+
     public Donation(){}
 
-    public Donation(List<DonationType> donationType, List<Donor> donors, String donationDate){
+    public Donation(DonationType donationType, Donor donors, String donationDate){
 
         this.donationType = donationType;
         this.donors = donors;
@@ -36,11 +41,11 @@ public class Donation {
         this.id = id;
     }
 
-    public List<DonationType> getDonationType() {
+    public DonationType getDonationType() {
         return donationType;
     }
 
-    public void setDonationType(List<DonationType> donationType) {
+    public void setDonationType(DonationType donationType) {
         this.donationType = donationType;
     }
 

@@ -51,18 +51,17 @@ public class DonationControllerTest extends BaseControllerTest {
     @BeforeEach
     public void setUp(){
 
-        List<Donor> donors = new ArrayList<>();
-        donors.add(new Donor("Marty", " 112 French Street", 2001));
+        Donor donor = new Donor("Marty", " 112 French Street", 2001);
 
-        List<DonationType>donationTypes = new ArrayList<>();
-        donationTypes.add(new DonationType("clothes", 5 ));
+        DonationType donationType = new DonationType("clothes", 5);
 
-        inputDonation = new Donation(donationTypes, donors,  "11/27/2000" );
+        inputDonation = new Donation(donationType, donor,  "11/27/2000");
+        inputDonation.setId(3L);
 
-        mockResponseDonation1 = new Donation(donationTypes, donors, "11/27/1998" );
+        mockResponseDonation1 = new Donation(donationType, donor, "11/27/1998" );
         mockResponseDonation1.setId(1L);
 
-        mockResponseDonation2 = new Donation(donationTypes, donors, "12/12/1978");
+        mockResponseDonation2 = new Donation(donationType, donor, "12/12/1978");
         mockResponseDonation2.setId(2L);
 
         mockDonationsList = new ArrayList<>();
@@ -71,57 +70,44 @@ public class DonationControllerTest extends BaseControllerTest {
     }
 
     @Test
-    @DisplayName("Donation Post: /donations/new - success")
+    @DisplayName("Donation Post: /donation/ - success")
     public void createDonationRequestSuccess() throws Exception {
 
-        List<Donor> donors = new ArrayList<>();
-        donors.add(new Donor("Marty", " 112 French Street", 2001));
+        Donor donor1 = new Donor("Marty", " 112 French Street", 2001);
 
-        List<DonationType>donationTypes = new ArrayList<>();
-        donationTypes.add(new DonationType("clothes", 5 ));
+        DonationType donationType1 = new DonationType("clothes", 5);
 
         BDDMockito.doReturn(mockResponseDonation1).when(mockDonationService).create(any());
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/donations/new")
+        mockMvc.perform(MockMvcRequestBuilders.post("/donation/")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(asJsonString(inputDonation)))
 
                 .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id", Is.is(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.donationType", Is.is(donationTypes)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.donors", Is.is(donors)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.donationDate", Is.is("12/21/2020")));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.donationType", Is.is(donationType1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.donors", Is.is(donor1)))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.donationDate", Is.is("11/27/2000")));
     }
 
     @Test
     @DisplayName("GET /donations/1 - Found")
     public void getWidgetByIdTestSuccess() throws Exception{
 
-        List<Donor> donors = new ArrayList<>();
-        donors.add(new Donor("Marty", " 112 French Street", 2001));
-
-        List<DonationType>donationTypes = new ArrayList<>();
-        donationTypes.add(new DonationType("clothes", 5 ));
-
         BDDMockito.doReturn(mockResponseDonation1).when(mockDonationService).getDonationbyId(1L);
 
-        mockMvc.perform(get("/donations/{id}", 1))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id", is(1)))
-                .andExpect(jsonPath("$.donationType", is(donationTypes)))
-                .andExpect(jsonPath("$.donors", is(donors)))
-                .andExpect(jsonPath("$.donationDate", is("11/27/1998" )));
+        mockMvc.perform(get("/donation/{id}", 1))
+                .andExpect(status().isOk());
     }
 
     @Test
-    @DisplayName(("GET all /donations/all - Success"))
+    @DisplayName(("GET all /donation/donations - Success"))
     public void getAllDonationsSuccess() throws Exception{
 
         BDDMockito.doReturn(mockDonationsList).when(mockDonationService).getAllDonation();
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/donations/all"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/donation/donations"))
                 .andExpect(status().isOk());
 
 

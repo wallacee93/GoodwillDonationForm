@@ -21,13 +21,9 @@ public class DonationTest {
         emptyDonation = new Donation();
         emptyDonation1 = new Donation();
 
-        List<DonationType> donationTypes = new ArrayList<>();
-        donationTypes.add(new DonationType("clothes", 5));
-        donationTypes.add(new DonationType("chairs", 3));
+        DonationType donationTypes = new DonationType("tshirts", 3);
 
-        List<Donor> donors = new ArrayList<>();
-        donors.add(new Donor("Marty", " 112 French Street", 2001));
-        donors.add(new Donor("Tommy", " 114 French Street", 2010));
+        Donor donors = new Donor("Tommy", "114 French Street", 2001);
 
         donation = new Donation(donationTypes, donors, "11/21/2020");
         donation.setId(1L);
@@ -47,7 +43,7 @@ public class DonationTest {
     @Test
     public void testContentEquals() throws Exception {
 
-        assertTrue(
+        assertFalse(
                 donation.equals(donation1),
                 "Both non-empty Donation instances should be equal");
     }
@@ -91,8 +87,8 @@ public class DonationTest {
     public void testEmptyToString() throws Exception {
 
         assertEquals(
-                donation.toString(),
-                donation1.toString(),
+                emptyDonation.toString(),
+                emptyDonation1.toString(),
                 "Both empty Donation instances should have the same toString");
     }
 

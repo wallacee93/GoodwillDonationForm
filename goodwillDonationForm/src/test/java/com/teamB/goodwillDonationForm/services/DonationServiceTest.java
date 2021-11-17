@@ -41,11 +41,9 @@ public class DonationServiceTest {
         @BeforeEach
         public void setUp(){
 
-            List<Donor> donors = new ArrayList<>();
-            donors.add(new Donor("Marty", " 112 French Street", 2001));
+            Donor donors = new Donor("Marty", " 112 French Street", 2001);
 
-            List<DonationType>donationTypes = new ArrayList<>();
-            donationTypes.add(new DonationType("clothes", 5 ));
+            DonationType donationTypes = new DonationType("jeans", 5);
 
             inputDonation = new Donation(donationTypes, donors,  "11/27/2000" );
 
@@ -61,9 +59,9 @@ public class DonationServiceTest {
         @DisplayName("Donation Service: Create Donation - Success")
         public void createDonationTestSuccess() {
             BDDMockito.doReturn(mockDonation1).when(mockDonationRepo).save(ArgumentMatchers.any());
-            Donation returnedDonation = donationService.create(inputDonation);
+            Donation returnedDonation = donationService.create(mockDonation1);
             Assertions.assertNotNull(returnedDonation, "Donation should not be null");
-            Assertions.assertEquals(returnedDonation.getId(),1 );
+            Assertions.assertEquals(returnedDonation.getId(),1L );
         }
 
         @Test
@@ -84,6 +82,7 @@ public class DonationServiceTest {
             BDDMockito.doReturn(donations).when(mockDonationRepo).findAll();
 
             List<Donation> responseDonations = donationService.getAllDonation();
+
             Assertions.assertIterableEquals(donations,responseDonations);
         }
 }
