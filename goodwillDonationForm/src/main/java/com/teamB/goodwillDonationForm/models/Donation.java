@@ -10,6 +10,7 @@ public class Donation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+<<<<<<< HEAD
     @ManyToOne
     @JoinColumn(name = "donation_type_id")
     private DonationType donationType;
@@ -17,6 +18,11 @@ public class Donation {
     @ManyToOne
     @JoinColumn(name = "donors_id")
     private Donor donors;
+=======
+    private List<DonationType> donationType;
+//Angie
+    private List<Donor> donors;
+>>>>>>> 4286b7c6f84db9fa3d7ef8e45c7118e0a7dd4587
 
     private String donationDate;
 
