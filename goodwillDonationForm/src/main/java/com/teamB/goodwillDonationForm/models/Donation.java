@@ -14,7 +14,7 @@ public class Donation {
     private Long id;
 
     private List<DonationType> donationType;
-
+//Angie
     private List<Donor> donors;
 
     private String donationDate;
